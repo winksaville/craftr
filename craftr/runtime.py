@@ -20,7 +20,6 @@
 
 from craftr import utils, logging
 
-import craftr
 import os
 import platform
 import re
@@ -313,18 +312,18 @@ class Module(object):
     data.error = self.__error
 
     # Utility built-ins
-    data.join = craftr.utils.path.join
-    data.dirname = craftr.utils.path.dirname
-    data.normpath = craftr.utils.path.normpath
-    data.basename = craftr.utils.path.basename
-    data.glob = craftr.utils.path.glob
-    data.move = craftr.utils.path.move
-    data.addprefix = craftr.utils.path.addprefix
-    data.addsuffix = craftr.utils.path.addsuffix
-    data.rmvsuffix = craftr.utils.path.rmvsuffix
-    data.autoexpand = craftr.utils.lists.autoexpand
-    data.Process = craftr.utils.shell.Process
-    data.CommandBuilder = craftr.utils.CommandBuilder
+    data.join = utils.path.join
+    data.dirname = utils.path.dirname
+    data.normpath = utils.path.normpath
+    data.basename = utils.path.basename
+    data.glob = utils.path.glob
+    data.move = utils.path.move
+    data.addprefix = utils.path.addprefix
+    data.addsuffix = utils.path.addsuffix
+    data.rmvsuffix = utils.path.rmvsuffix
+    data.autoexpand = utils.lists.autoexpand
+    data.Process = utils.shell.Process
+    data.CommandBuilder = utils.CommandBuilder
 
   def read_identifier(self):
     ''' Reads the identifier from the file with the name the `Module`
@@ -597,7 +596,7 @@ class Module(object):
     code = kwargs.pop('code', 1)
     self.logger.error(*args, frame=sys._getframe().f_back, **kwargs)
     if code:
-      message = craftr.logging.print_as_str(*args)
+      message = logging.print_as_str(*args)
       raise ModuleError(self, code, message)
 
 
@@ -635,7 +634,7 @@ class Target(object):
 
   def __init__(self, module, name, inputs, outputs, requires=(),
       foreach=False, description=None, **kwargs):
-    from craftr.utils.lists import autoexpand
+    from .utils.lists import autoexpand
 
     inputs = autoexpand(inputs)
     outputs = autoexpand(outputs)
